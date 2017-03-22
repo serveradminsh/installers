@@ -239,6 +239,11 @@ nginxConfigure()
     && cp -R ${currentPath}/systemd/nginx.service /lib/systemd/system/nginx.service
 
     #+------------------------------------------------------------------------+
+    #+ Set correct permissions and ownership
+    #+------------------------------------------------------------------------+
+    chown -R nginx:nginx /home/nginx
+
+    #+------------------------------------------------------------------------+
     #+ Create systemd service script and start NGINX
     #+------------------------------------------------------------------------+
     systemctl enable nginx \
