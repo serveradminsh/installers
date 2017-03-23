@@ -54,6 +54,7 @@ currentPath="${PWD}"
 dhparamBits="4096"
 nginxUser="nginx"
 openSslVers="1.0.2k"
+pagespeedVers="1.12.34.2"
 pcreVers="8.40"
 zlibVers="1.2.11"
 
@@ -101,9 +102,11 @@ nginxSetup()
     #+ 1). NGINX
     #+ 2). NGINX Dev. Kit (Module)
     #+ 3). NGINX Headers More (Module)
-    #+ 4). Brotli (for Brotli Compression)
-    #+ 5). LibBrotli
-    #+ 6). NGINX Brotli (Module)
+    #+ 4). NGINX VTS (Module)
+    #+ 5). Brotli (for Brotli Compression)
+    #+ 6). LibBrotli
+    #+ 7). NGINX Brotli (Module)
+    #+ 8). NAXSI (Module)
     #+------------------------------------------------------------------------+
     cd /usr/local/src/github \
     && git clone https://github.com/nginx/nginx.git \
@@ -112,7 +115,21 @@ nginxSetup()
     && git clone https://github.com/vozlt/nginx-module-vts.git \
     && git clone https://github.com/google/brotli.git \
     && git clone https://github.com/bagder/libbrotli \
-    && git clone https://github.com/google/ngx_brotli
+    && git clone https://github.com/google/ngx_brotli \
+    && git clone https://github.com/nbs-system/naxsi.git
+
+    #+------------------------------------------------------------------------+
+    #+ Google Pagespeed for NGINX
+    #+ https://modpagespeed.com/doc/build_ngx_pagespeed_from_source
+    #+------------------------------------------------------------------------+
+    cd /usr/local/src/github \
+    && wget https://github.com/pagespeed/ngx_pagespeed/archive/v${pagespeedVers}-beta.zip \
+    && unzip v${pagespeedVers}-beta.zip \
+    && cd ngx_pagespeed-${pagespeedVers}-beta \
+    && export psol_url=https://dl.google.com/dl/page-speed/psol/${pagespeedVers}.tar.gz \
+    && [ -e scripts/format_binary_url.sh ] && psol_url=$(scripts/format_binary_url.sh PSOL_BINARY_URL) \
+    && wget ${psol_url} \
+    && tar -xzvf $(basename ${psol_url})
 
     #+------------------------------------------------------------------------+
     #+ Install Brotli
@@ -205,10 +222,12 @@ nginxCompile()
                         --with-pcre-jit \
                         --with-zlib=/usr/local/src/packages/zlib \
                         --with-openssl=/usr/local/src/packages/openssl \
+                        --add-module=/usr/local/src/githu/naxsi/naxsi_src \
                         --add-module=/usr/local/src/github/ngx_devel_kit \
                         --add-module=/usr/local/src/github/nginx-module-vts \
                         --add-module=/usr/local/src/github/ngx_brotli \
                         --add-module=/usr/local/src/github/headers-more-nginx-module \
+                        --add-module=/usr/local/src/github/ngx_pagespeed-${pagespeedVers}-beta \
     && make -j ${cpuCount} \
     && make install
 }

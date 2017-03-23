@@ -30,7 +30,9 @@ then
     apt-get update
     exit;
 else
-    add-apt-repository -y ppa:ondrej/php \
+    apt-get update \
+    && apt-get -y upgrade \
+    && add-apt-repository -y ppa:ondrej/php \
     && apt-get update \
-    && apt-get -y install "${phpPackages}"
+    && apt-get -y install ${phpPackages}
 fi
