@@ -116,7 +116,8 @@ nginxSetup()
     && git clone https://github.com/google/brotli.git \
     && git clone https://github.com/bagder/libbrotli \
     && git clone https://github.com/google/ngx_brotli \
-    && git clone https://github.com/nbs-system/naxsi.git
+    && git clone https://github.com/nbs-system/naxsi.git \
+    && git clone https://github.com/openresty/set-misc-nginx-module.git
 
     #+------------------------------------------------------------------------+
     #+ Google Pagespeed for NGINX
@@ -227,6 +228,7 @@ nginxCompile()
                         --add-module=/usr/local/src/github/nginx-module-vts \
                         --add-module=/usr/local/src/github/ngx_brotli \
                         --add-module=/usr/local/src/github/headers-more-nginx-module \
+                        --add-module=/usr/local/src/github/set-misc-nginx-module \
                         --add-module=/usr/local/src/github/ngx_pagespeed-${pagespeedVers}-beta \
     && make -j ${cpuCount} \
     && make install
