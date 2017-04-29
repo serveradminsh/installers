@@ -50,7 +50,7 @@ fi
 #+ Pre-Configuration
 #+----------------------------------------------------------------------------+
 cpuCount=$(nproc --all)
-currentPath="${PWD}"
+currentPath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 dhparamBits="4096"
 nginxUser="nginx"
 openSslVers="1.0.2k"
@@ -70,7 +70,7 @@ nginxSetup()
     #+------------------------------------------------------------------------+
     apt-get update \
     && apt-get -y upgrade \
-    && apt-get -y install autoconf automake bc bison build-essential ccache cmake curl dh-systemd flex gcc geoip-bin google-perftools g++ haveged icu-devtools letsencrypt libacl1-dev libbz2-dev libcap-ng-dev libcap-ng-utils libcurl4-openssl-dev libdmalloc-dev libenchant-dev libevent-dev libexpat1-dev libfontconfig1-dev libfreetype6-dev libgd-dev libgeoip-dev libghc-iconv-dev libgmp-dev libgoogle-perftools-dev libice-dev libice6 libicu-dev libjbig-dev libjpeg-dev libjpeg-turbo8-dev libjpeg8-dev libluajit-5.1-2 libluajit-5.1-common libluajit-5.1-dev liblzma-dev libmhash-dev libmhash2 libmm-dev libncurses5-dev libnspr4-dev libpam0g-dev libpcre3 libpcre3-dev libperl-dev libpng-dev libpthread-stubs0-dev libreadline-dev libselinux1-dev libsm-dev libsm6 libssl-dev libtidy-dev libtiff5-dev libtiffxx5 libtool libunbound-dev libvpx-dev libvpx3 libwebp-dev libx11-dev libxau-dev libxcb1-dev libxdmcp-dev libxml2-dev libxpm-dev libxslt1-dev libxt-dev libxt6 make nano perl pkg-config python-dev software-properties-common systemtap-sdt-dev unzip webp wget xtrans-dev zip zlib1g-dev zlibc
+    && apt-get -y install autoconf automake bc bison build-essential ccache cmake curl dh-systemd flex gcc geoip-bin google-perftools g++ haveged icu-devtools letsencrypt libacl1-dev libbz2-dev libcap-ng-dev libcap-ng-utils libcurl4-openssl-dev libdmalloc-dev libenchant-dev libevent-dev libexpat1-dev libfontconfig1-dev libfreetype6-dev libgd-dev libgeoip-dev libghc-iconv-dev libgmp-dev libgoogle-perftools-dev libice-dev libice6 libicu-dev libjbig-dev libjpeg-dev libjpeg-turbo8-dev libjpeg8-dev libluajit-5.1-2 libluajit-5.1-common libluajit-5.1-dev liblzma-dev libmhash-dev libmhash2 libmm-dev libncurses5-dev libnspr4-dev libpam0g-dev libpcre3 libpcre3-dev libperl-dev libpng-dev libpthread-stubs0-dev libreadline-dev libselinux1-dev libsm-dev libsm6 libssl-dev libtidy-dev libtiff5-dev libtiffxx5 libtool libunbound-dev libvpx-dev libvpx3 libwebp-dev libx11-dev libxau-dev libxcb1-dev libxdmcp-dev libxml2-dev libxpm-dev libxslt1-dev libxt-dev libxt6 make nano perl pkg-config python-dev software-properties-common systemtap-sdt-dev unzip webp wget xtrans-dev zip zlib1g-dev zlibc sysstat auditd
 
     #+------------------------------------------------------------------------+
     #+ Check whether a user named nginx exists
